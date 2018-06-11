@@ -16,6 +16,7 @@
   "devDependencies": {
     "axios": "^0.18.0",
     "immutable": "^3.8.2",
+    "lodash": "^4.17.10",
     "react-redux": "^5.0.7",
     "react-router": "^3.2.1",
     "react-router-dom": "^4.3.1",
