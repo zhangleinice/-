@@ -12,26 +12,23 @@ const instance = axios.create({
 
 //  Add a request interceptor
 instance.interceptors.request.use(config => {
-    if(token) {
-        config.headers.Authorization = token 
-    }
+    console.log('Add a request interceptor');
     return config
 }, err => {
+    console.log(err);
     return Promise.reject(err)
 })
 
 //  Add a response interceptor
 instance.interceptors.response.use(response => {
+    console.log('Add a response interceptor');
     return response
 }, err => {
-    if(err.response) {
-
-    }
-    return err.response.data;
+    console.log(err);
 })
 
 
-const axios = {
+const http = {
     get(url, params) {
         return instance.get(url, params)
     },
@@ -40,4 +37,4 @@ const axios = {
     }
 }
 
-export default axios;
+export default http;
