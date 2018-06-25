@@ -1,5 +1,7 @@
 import { Cityinside } from './action'
 
-const City = 'City';
+const initailState = {
+    city: []
+}
 
 export default City;
