@@ -7,9 +7,9 @@ class App extends Component {
     this.state = {  };
   }
   componentDidMount() {
-    Cityinside().then(res => {
-      console.log(res);
-    });
+    // Cityinside().then(res => {
+    //   console.log(res);
+    // });
   }
   render() {
     return (

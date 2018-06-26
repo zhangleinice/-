@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
-import { Cityinside } from '../../../common/api/city';
+import {city} from '../../store/city/action';
 
 class Home extends Component {
     constructor(props) {
         super(props);
     }
     componentDidMount() {
-        (async () => {
-            try {
-                let city = await Cityinside();
-                console.log(city.data);
-            } catch (error) {
-                console.log(error);
-            }
-        })();
+        city();
     }
     render() {
         return (
