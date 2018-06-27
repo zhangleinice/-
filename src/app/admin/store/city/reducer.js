@@ -1,6 +1,5 @@
 // 必须是一个纯函数，可预测
 
-
 import { CITY } from './action';
 
 const initailState = {
