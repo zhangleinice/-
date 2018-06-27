@@ -3,12 +3,14 @@ import store from '../index';
 
 export const CITY = 'CITY';
 export const city = data => {
-    store.dispatch(
-        {
-            type: CITY,
-            payload: api.Cityinside()
-        }
-    )
+    api.Cityinside().then(res => {
+        store.dispatch(
+            {
+                type: CITY,
+                payload: res.data
+            }
+        )
+    })
 }
 
 export const NUM = 'NUM';

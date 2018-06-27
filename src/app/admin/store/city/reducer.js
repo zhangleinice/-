@@ -1,22 +1,21 @@
-import { CITY, NUM } from './action';
+// 必须是一个纯函数，可预测
+
+
+import { CITY } from './action';
 
 const initailState = {
     city: []
 }
 
-
 const getCity = (state = initailState, action) => {
-    // console.log(action)
     switch(action.type) {
         case CITY:
-            action.payload.then(res => {
-                state.city = res.data
-            }) 
-            return 
-            break;
+            return {
+                ...state,
+                city: action.payload,
+            };
         default :
             return state;
-        break;
     }   
 }
 

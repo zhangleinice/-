@@ -3,7 +3,7 @@ import axios from 'axios';
 const instance = axios.create({
     baseURL: '',
     withCredentials: true,   //跨域请求时是否需要使用凭证,是否允许带cookie这些
-    responseType: JSON,   //默认
+    responseType: JSON,   
     timeout: 5000,  //请求超时
     headers: {
         'Content-Type': 'application/json'   //现在基本采用json格式，必须发送json格式的字符串

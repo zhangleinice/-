@@ -1,13 +1,13 @@
-import React from 'react';
+// import React from 'react';
 import ReactDOM from 'react-dom';
 import router from './app/admin/router/index';
-import {Provider} from 'react-redux';
+// import {Provider} from 'react-redux';
 // import { createStore, compose, applyMiddleware } from 'redux';
-import Thunk from 'redux-thunk';
+// import Thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+// import { syncHistoryWithStore } from 'react-router-redux';
 // import rootReducer from './app/admin/store/reducer';
-import rootReducer from './app/admin/store/city/reducer';
+// import rootReducer from './app/admin/store/city/reducer';
 
 // compose增强creatStore
 
