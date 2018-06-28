@@ -3,14 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../store/city/action';
-import store from '../../store/index';
 
-// @connect(
-//     state => {
-//         console.log(state);
-//     },
-//     dispatch => bindActionCreators(action, dispatch)
-// );
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -19,14 +12,22 @@ class Home extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.props);
         // actions.city();
-        // 请求成功不代表reducer更新成功
-        store.subscribe(() => {
-            this.setState({
-                citys: store.getState().getCity.city
-            });
-        })
+        this.props.actions.city();
+        console.log(this.props);
+        // react-redux内封装好了subscript
+        // store.subscribe(() => {
+        //     this.setState({
+        //         citys: store.getState().getCity.city
+        //     });
+        // })
+    }
+    // 配合react-redux拿到更新后的state
+    componentWillReceiveProps(nextProps) {
+        // console.log(store.getState().getCity.city);
+        this.setState({
+            citys: nextProps.citys.city
+        });
     }
     render() {
         return (
@@ -49,13 +50,13 @@ class Home extends Component {
     }
 }
 
-
-// 使用异步actions时，必须配置中间件
+// 将action和state绑定到props上
 export default connect(
-    state => state.getCity,
-    dispatch =>{
-       return {
-            a: () => dispatch(actions.city())
-       } 
-    }
+    state => {
+        return {
+            citys: state.getCity
+        }
+    },
+    // 写第二个参数后，不需要在action中dispatch，而是return一个对象
+    dispatch =>({ actions: bindActionCreators(actions, dispatch) })
 )(Home);
