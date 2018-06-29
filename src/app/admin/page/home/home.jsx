@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../store/city/action';
 
+@connect(
+    state => ({
+        citys: state.getCity
+    }),
+    dispatch => ({ 
+        actions: bindActionCreators(actions, dispatch) 
+    })
+)
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +32,6 @@ class Home extends Component {
     }
     // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
-        // console.log(store.getState().getCity.city);
         this.setState({
             citys: nextProps.citys.city
         });
@@ -50,13 +57,4 @@ class Home extends Component {
     }
 }
 
-// 将action和state绑定到props上
-export default connect(
-    state => {
-        return {
-            citys: state.getCity
-        }
-    },
-    // 写第二个参数后，不需要在action中dispatch，而是return一个对象
-    dispatch =>({ actions: bindActionCreators(actions, dispatch) })
-)(Home);
+export default Home;

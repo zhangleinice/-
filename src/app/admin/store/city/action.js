@@ -1,12 +1,9 @@
 import  * as api  from '../../../common/api/city'; 
-import store from '../index';
-
-
 
 export const CITY = 'CITY';
 export const city = data => {
+    // 不用react-redux
     // api.Cityinside().then(res => {
-    //     citys = res.data
     //     store.dispatch(
     //         {
     //             type: CITY,
@@ -14,29 +11,33 @@ export const city = data => {
     //         }
     //     )
     // })
-    const xx = () => {
-        let citys = [];
-        return api.Cityinside().then(res => {
-            citys = res.data
-            // console.log(citys);
-            return citys;
+    
+    // redux-thunk
+    return (dispatch) => {
+        api.Cityinside().then(res =>{
+            dispatch ({
+                type: CITY,
+                payload: res.data
+            })
         })
     }
-    xx();
-    console.log(xx());
-    return {
-        type: CITY,
-        payload: [{label:'北京'}]
-    }
+
+    // redux-promise
+    // return {
+    //     type: CITY,
+    //     payload: api.Cityinside()
+    // }
 }
 
 export const NUM = 'NUM';
 export const num = data => {
-    store.dispatch(
-        {
-            type: NUM,
-            payload: api.Cityinside()
-        }
-    )
+    return (dispatch) => {
+        api.Cityinside().then(res =>{
+            dispatch ({
+                type: CITY,
+                payload: res.data
+            })
+        })
+    }
 }
 
