@@ -1,25 +1,16 @@
 # 基于react + redux的项目搭建个人总结
 
-## 开发说明
-
-- 安装构建工具
+## 项目运行
 
   ```sh
+  git clone git@github.com:zhangleinice/-.git  
   npm install
+  npm run dev
   ```
 
-- 本地运行
+## 技术栈 
 
-  ```sh
-  npm run start
-  ```
-  本地开发访问 `http://localhost:3000`
-
-- 本地构建
-
-  ```sh
-  npm run build
-  ```
+react + redux + webpack + react-router + ES6/7/8 
 
 ## Redux
 
@@ -48,6 +39,53 @@
 ### action 
 
 > 可以这样理解，Action 描述当前发生的事情。改变 State 的唯一办法，就是使用 Action。它会运送数据到 Store。action是一个对象，其中type属性是必须的，同时可以传入一些数据。action可以用actionCreactor进行创造。dispatch就是把action对象发送出去。
+
+### reducer
+
+> Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。Reducer 是一个函数，它接受 Action 和当前 State 作为参数，返回一个新的 State。
+
+## React-Redux
+
+如果只使用redux，那么流程是这样的：
+
+> component --> dispatch(action) --> reducer --> subscribe --> getState --> component
+
+用了react-redux之后流程是这样的：
+
+> component --> actionCreator(data) --> reducer --> component
+
+* store的三大功能：dispatch，subscribe，getState都不需要手动来写了。react-redux帮我们做了这些，同时它提供了两个好基友Provider和connect。
+
+### Provider
+
+* <Provider store> 使组件层级中的 connect() 方法都能够获得 Redux store。正常情况下，你的根组件应该嵌套在 <Provider> 中才能使用 connect() 方法。
+
+```jsx
+  <Provider store={store}>
+      {router(hashHistory)}
+  </Provider>
+```
+
+### connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+
+* 连接 React 组件与 Redux store。
+
+> [mapStateToProps(state, [ownProps]): stateProps] (Function): 如果定义该参数，组件将会监听 Redux store 的变化。任何时候，只要 Redux store 发生改变，mapStateToProps 函数就会被调用。该回调函数必须返回一个纯对象，这个对象会与组件的 props 合并。如果你省略了这个参数，你的组件将不会监听 Redux store。
+
+> [mapDispatchToProps(dispatch, [ownProps]): dispatchProps] (Object or Function): 如果传递的是一个对象，那么每个定义在该对象的函数都将被当作 Redux action creator，对象所定义的方法名将作为属性名；每个方法将返回一个新的函数，函数中dispatch方法会将action creator的返回值作为参数执行。这些属性会被合并到组件的 props 中。如果传递的是一个函数，该函数将接收一个 dispatch 函数，然后由你来决定如何返回一个对象，这个对象通过 dispatch 函数与 action creator 以某种方式绑定在一起（提示：你也许会用到 Redux 的辅助函数 bindActionCreators()）。
+
+```js
+  connect(
+    state => ({
+        citys: state.getCity
+    }),
+    dispatch => ({ 
+        actions: bindActionCreators(actions, dispatch) 
+    })
+  )(Home)
+```
+
+
 
 ## src：
 
