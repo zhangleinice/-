@@ -1,17 +1,52 @@
-// export const logger = store = next = action => {
-//     console.log('dispatching', action)
-//       let result = next(action)
-//       console.log('next state', store.getState())
-//       return result
-// }
+// middleware：增强dispatch，简化actionCreator。
 
-export function logger(store) {
-    return function wrapDispatchToAddLogging(next) {
-      return function dispatchAndLog(action) {
-        console.log('dispatching', action)
-        let result = next(action)
-        console.log('next state', store.getState())
-        return result
-      }
+import { isFSA } from 'flux-standard-action';
+
+// 打印日志
+export const logger = store => next => action => {
+    console.log('dispatching', action)
+    let result = next(action)
+    console.log('next state', store.getState())
+    return result
+}
+
+// redux-thunk
+export const thunkMiddleware = ({dispatch, getState, extraArgument}) => {
+    return next => action => {
+        if(typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+        return next(action);
     }
 }
+
+const isPromise = (val) => {
+    return val && typeof val.then === 'function';
+}
+
+//redux-promise
+export const promiseMiddleware = ({dispatch}) => {
+  return next => action => {
+    if(!isFSA(action)) {
+      return isPromise(action) 
+             ? action.then(dispatch) 
+             : next(action);
+    }
+    return isPromise(action.payload)
+           ?action.payload.then(
+             result => dispatch({...action,payload: result}),
+             error => {
+               dispatch({...action,payload: error,error: true})
+               return Promise.reject(error)
+             }
+           )
+           :next(action)
+  }
+} 
+
+//redux-promise-middleware
+const defaultType = [
+  'PENDING',
+  'SUCCESS',
+  'FAILURE'
+]

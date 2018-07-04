@@ -1,6 +1,7 @@
 // 必须是一个纯函数，可预测
 
 import { CITY } from './action';
+// import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware';
 
 const initailState = {
     city: []
@@ -9,28 +10,46 @@ const initailState = {
 const getCity = (state = initailState, action) => {
     switch(action.type) {
         // redux-thunk
+        // case CITY_SUCCESS:
+        //     return {
+        //         ...state,
+        //         city: action.payload,
+        //     };
+        // case CITY_FAIL:
+        //     return {
+        //         ...state,
+        //         city: action.error,
+        //     };
+        // default :
+        //     return state;
+
+        // redux-promise
         case CITY:
-            return {
-                ...state,
-                city: action.payload,
-            };
+            if(action.payload.status === 200) {
+                return {
+                    ...state,
+                    city: action.payload
+                }
+            }else {
+                console.log('服务器错误！');
+                return state;
+            }
         default :
             return state;
-        // redux-promise
-        // case CITY:
-        //     console.log(action);
-            // if(action.status === 'success') {
-            //     console.log(111);
-            //     return {
-            //         ...state,
-            //         city: action.payload
-            //     }
-            // }else {
-            //     console.log(2222);
-            //     return state;
-            // }
+
+        // redux-promise-middleware
+        // case `${CITY}_${PENDING}`:
+        //    console.log('pending');
+        //    break;
+        // case `${CITY}_${FULFILLED}`:
+        //    console.log('FULFILLED');
+        //    break;
+        // case `${CITY}_${REJECTED}`:
+        //    console.log('REJECTED');
+        //    break;
+        // default :
+        //     return state;
     }   
 }
-
 
 export default getCity;

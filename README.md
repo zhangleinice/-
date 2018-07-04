@@ -1,7 +1,7 @@
 ## 项目运行
 
   ```sh
-  git clone git@github.com:zhangleinice/-.git  
+  git clone git@github.com:zhangleinice/redux-demo.git
   npm install
   npm run dev
   ```
@@ -24,11 +24,19 @@ react + redux + webpack + react-router + ES6/7/8
 
 ### 2 subscribe:
 
-> 监听state的变化,当我们需要知道state是否变化时可以调用，它返回一个函数，调用这个返回的函数可以注销监听。 let unsubscribe = store.subscribe(() => {console.log('state发生了变化')})
+> 监听state的变化,当我们需要知道state是否变化时可以调用，它返回一个函数，调用这个返回的函数可以注销监听。 
 
 ### 3 getState:
 
 > 获取store中的state——当我们用action触发reducer改变了state时，需要再拿到新的state里的数据，毕竟数据才是我们想要的。利用subscribe监听到state发生变化后调用它来获取新的state数据。
+
+```js
+  store.subscribe(() => {
+      this.setState({
+          citys: store.getState().getCity.city
+      });
+  })
+```
 
 ### 4 replaceReducer:
 
@@ -62,7 +70,6 @@ react + redux + webpack + react-router + ES6/7/8
     // 或者
     return { ...state, ...newState };
   }
-
   // State 是一个数组
   function reducer(state, action) {
     return [...state, newItem];
@@ -112,17 +119,64 @@ store的三大功能：dispatch，subscribe，getState都不需要手动来写�
 
 ### 中间件和异步操作
 
+![Image text](https://github.com/zhangleinice/-/blob/master/public/imgs/middleware.jpg)
+
 用户发出 Action，Reducer 函数算出新的 State，View 重新渲染。<br/>但是，一个关键问题没有解决：异步操作怎么办？Action 发出以后，Reducer 立即算出 State，这叫做同步；Action 发出以后，过一段时间再执行 Reducer，这就是异步。
 
 Redux本身只能处理同步的Action，但可以通过中间件来拦截处理其它类型的action
 
 异步Action
 
-Middleware
+middleware：增强dispatch，简化actionCreator。
 
-> <strong>redux-thunk</strong>允许dispatch一个function。
+* redux-thunk : 允许return一个function
 
-> <strong>redux-promise</strong>简化actionCreator。
+```js
+  // actionCreator
+  export const city = data => {
+    return (dispatch) => {
+          api.Cityinside()
+              .then(res => {
+                  dispatch ({
+                      type: CITY_SUCCESS,
+                      payload: res.data
+                  })
+              })
+              .catch(err => {
+                  dispatch ({
+                      type: CITY_FAIL,
+                      error: err
+                  })
+              })
+      }
+  }
+```
+
+* redux-promise : 简化action
+
+```js
+  // actionCreator
+  export const city = data => {
+    return {
+        type: CITY,
+        payload: api.Cityinside()
+    }
+  }
+  // reducer
+  switch(action.type) {
+    if(action.payload.status === 200) {
+      return {
+          ...state,
+          city: action.payload
+        }
+      }else {
+          console.log('服务器错误！');
+          return state;
+          }
+      default :
+          return state;
+  }
+```
 
 
 
