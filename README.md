@@ -1,5 +1,3 @@
-# 基于react + redux的项目搭建个人总结
-
 ## 项目运行
 
   ```sh
@@ -40,9 +38,36 @@ react + redux + webpack + react-router + ES6/7/8
 
 > 可以这样理解，Action 描述当前发生的事情。改变 State 的唯一办法，就是使用 Action。它会运送数据到 Store。action是一个对象，其中type属性是必须的，同时可以传入一些数据。action可以用actionCreactor进行创造。dispatch就是把action对象发送出去。
 
+```js
+  export const city = data => {
+    api.Cityinside().then(res => {
+          store.dispatch(
+              {
+                  type: CITY,
+                  payload: res.data
+              }
+          )
+      })
+  }
+```
+
 ### reducer
 
-> Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。Reducer 是一个函数，它接受 Action 和当前 State 作为参数，返回一个新的 State。
+> Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。Reducer 是一个函数，它接受 Action 和当前 State 作为参数，返回一个新的 State。<br />Reducer 函数最重要的特征是，它是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。由于 Reducer 是纯函数，就可以保证同样的State，必定得到同样的 View。但也正因为这一点，Reducer 函数里面不能改变 State，必须返回一个全新的对象。
+
+```js
+  // State 是一个对象
+  function reducer(state, action) {
+    return Object.assign({}, state, { thingToChange });
+    // 或者
+    return { ...state, ...newState };
+  }
+
+  // State 是一个数组
+  function reducer(state, action) {
+    return [...state, newItem];
+  }
+```
 
 ## React-Redux
 
@@ -54,11 +79,11 @@ react + redux + webpack + react-router + ES6/7/8
 
 > component --> actionCreator(data) --> reducer --> component
 
-* store的三大功能：dispatch，subscribe，getState都不需要手动来写了。react-redux帮我们做了这些，同时它提供了两个好基友Provider和connect。
+store的三大功能：dispatch，subscribe，getState都不需要手动来写了。react-redux帮我们做了这些，同时它提供了两个好基友Provider和connect。
 
 ### Provider
 
-* <Provider store> 使组件层级中的 connect() 方法都能够获得 Redux store。正常情况下，你的根组件应该嵌套在 <Provider> 中才能使用 connect() 方法。
+<Provider store> 使组件层级中的 connect() 方法都能够获得 Redux store。正常情况下，你的根组件应该嵌套在 <Provider> 中才能使用 connect() 方法。
 
 ```jsx
   <Provider store={store}>
@@ -68,7 +93,7 @@ react + redux + webpack + react-router + ES6/7/8
 
 ### connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 
-* 连接 React 组件与 Redux store。
+连接 React 组件与 Redux store。
 
 > [mapStateToProps(state, [ownProps]): stateProps] (Function): 如果定义该参数，组件将会监听 Redux store 的变化。任何时候，只要 Redux store 发生改变，mapStateToProps 函数就会被调用。该回调函数必须返回一个纯对象，这个对象会与组件的 props 合并。如果你省略了这个参数，你的组件将不会监听 Redux store。
 
@@ -85,13 +110,20 @@ react + redux + webpack + react-router + ES6/7/8
   )(Home)
 ```
 
+### 中间件和异步操作
+
+用户发出 Action，Reducer 函数算出新的 State，View 重新渲染。<br/>但是，一个关键问题没有解决：异步操作怎么办？Action 发出以后，Reducer 立即算出 State，这叫做同步；Action 发出以后，过一段时间再执行 Reducer，这就是异步。
+
+Redux本身只能处理同步的Action，但可以通过中间件来拦截处理其它类型的action
+
+异步Action
+
+Middleware
+
+> <strong>redux-thunk</strong>允许dispatch一个function。
+
+> <strong>redux-promise</strong>简化actionCreator。
 
 
-## src：
-
-__公共组件__
 
 
-### 7.3 vendor/react-app-init
-
-- 页面启动工具。封装了react，react-redux，react-router和快照和异步action中间件。
