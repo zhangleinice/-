@@ -4,7 +4,7 @@ import router from './app/admin/router/index';
 import {Provider} from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import {hashHistory} from 'react-router';
-// import { syncHistoryWithStore } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import rootReducer from './app/admin/store/reducer';
 import {logger, promiseMiddleware, thunkMiddleware} from './app/admin/store/middleware/index';
 // import promise from 'redux-promise-middleware';
@@ -13,13 +13,16 @@ import {logger, promiseMiddleware, thunkMiddleware} from './app/admin/store/midd
 // compose增强creatStore
 
 
-// 增强history
-// const history = syncHistoryWithStore(hashHistory,store)
+
 const store = createStore(
     rootReducer,
+    // routerReducer,
     // 使用applyMiddleware加载middlewares
     applyMiddleware(logger, promiseMiddleware, thunkMiddleware)
 )
+
+// 增强history
+// const history = syncHistoryWithStore(hashHistory,store)
 
 // Provider作为根组件，传弟子组件的connect
 ReactDOM.render(

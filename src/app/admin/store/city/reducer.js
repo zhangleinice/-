@@ -36,19 +36,6 @@ const getCity = (state = initailState, action) => {
             }
         default :
             return state;
-
-        // redux-promise-middleware
-        // case `${CITY}_${PENDING}`:
-        //    console.log('pending');
-        //    break;
-        // case `${CITY}_${FULFILLED}`:
-        //    console.log('FULFILLED');
-        //    break;
-        // case `${CITY}_${REJECTED}`:
-        //    console.log('REJECTED');
-        //    break;
-        // default :
-        //     return state;
     }   
 }
 

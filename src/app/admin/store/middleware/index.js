@@ -43,10 +43,3 @@ export const promiseMiddleware = ({dispatch}) => {
            :next(action)
   }
 } 
-
-//redux-promise-middleware
-const defaultType = [
-  'PENDING',
-  'SUCCESS',
-  'FAILURE'
-]

@@ -31,7 +31,6 @@ class Home extends Component {
     }
     // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
-        // console.log(nextProps);
         // 用redux-thunk和redux-promise之后的nextProps是不一样的
         this.setState({
             citys: nextProps.citys.city.data
