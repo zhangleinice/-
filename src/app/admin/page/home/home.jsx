@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
+import { Button } from 'antd';
 import * as actions from '../../store/city/action';
+
 
 @connect(
     state => ({
@@ -12,6 +15,8 @@ import * as actions from '../../store/city/action';
         actions: bindActionCreators(actions, dispatch) 
     })
 )
+// withRouter可以包装任何自定义组件，将react-router 的 history,location,match 三个对象传入。 
+@withRouter
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -36,13 +41,22 @@ class Home extends Component {
             citys: nextProps.citys.city.data
         });
     }
+    // 路由跳转
+    toList = () => {
+        this.props.router.push('/list')
+    }
+    toDetail = () => {
+        this.props.router.push('/detail')
+    }
     render() {
         return (
             <div>
                 <div>首页</div>
                 {this.props.children}
-                <div><Link to='/list'>to list</Link></div>
-                <div><Link to='/detail'>to detail</Link></div>
+                {/* <div><Link to='/list'>to list</Link></div>
+                <div><Link to='/detail'>to detail</Link></div> */}
+                <Button type='primary' onClick={this.toList}>to list</Button>
+                <Button type="primary" onClick={this.toDetail}>to detail</Button>
                 <div>
                     {
                         this.state.citys.map(item => {
