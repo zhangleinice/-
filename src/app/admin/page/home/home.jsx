@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -5,12 +6,13 @@ import { withRouter } from 'react-router';
 import { Button } from 'antd';
 import * as actions from '../../store/city/action';
 
-
 @connect(
-    state => ({
-        citys: state.getCity
+    ({getCity, operation}) => ({
+        operation,
+        citys: getCity
     }),
     dispatch => ({ 
+        // @ts-ignore
         actions: bindActionCreators(actions, dispatch) 
     })
 )
@@ -36,9 +38,17 @@ class Home extends Component {
     // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
         // 用redux-thunk和redux-promise之后的nextProps是不一样的
-        this.setState({
-            citys: nextProps.citys.city.data
-        });
+        console.log(nextProps);
+        const {citys , operation} = nextProps;
+        switch (operation.type) {
+            case 'CITY_SUCCESS':
+                    this.setState({
+                        citys: citys.city.data
+                    });
+                break;
+            default:
+                break;
+        };
     }
     // 路由跳转
     toList = () => {
@@ -52,8 +62,6 @@ class Home extends Component {
             <div>
                 <div>首页</div>
                 {this.props.children}
-                {/* <div><Link to='/list'>to list</Link></div>
-                <div><Link to='/detail'>to detail</Link></div> */}
                 <Button type='primary' onClick={this.toList}>to list</Button>
                 <Button type="primary" onClick={this.toDetail}>to detail</Button>
                 <div>
