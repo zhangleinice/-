@@ -1,42 +1,32 @@
 // 必须是一个纯函数，可预测
 
-import { CITY,CITY_SUCCESS,CITY_PENDING } from './action';
-// import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware';
+import { CITY_SUCCESS,CITY_PENDING } from './action';
+import {fromJS} from 'immutable';
+import {createReducer} from 'redux-immutablejs';
+import {getObjReducer, getArrayReducer} from '../../../common/util/reducer';
 
-const initailState = {
+const initailState = fromJS({
     city: []
-}
-
+})
+// immutable
+export default createReducer(initailState, {
+    [CITY_SUCCESS]: (state, {payload}) =>{
+        return state.set('city', getArrayReducer(state, payload));
+    }
+})
 // const getCity = (state = initailState, action) => {
 //     switch(action.type) {
 //         // redux-promise
-//         case CITY:
-//             if(action.payload.status === 200) {
-//                 return {
+//         case CITY_SUCCESS:
+//             return {
 //                     ...state,
 //                     city: action.payload
-//                 }
-//             }else {
-//                 console.log('服务器错误！');
+//                 };
+//         case CITY_PENDING:
 //                 return state;
-//             }
 //         default :
 //             return state;
 //     }   
 // }
-const getCity = (state = initailState, action) => {
-    switch(action.type) {
-        // redux-promise
-        case CITY_SUCCESS:
-            return {
-                    ...state,
-                    city: action.payload
-                };
-        case CITY_PENDING:
-                return state;
-        default :
-            return state;
-    }   
-}
 
-export default getCity;
+// export default getCity;

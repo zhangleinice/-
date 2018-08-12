@@ -7,10 +7,13 @@ import { Button } from 'antd';
 import * as actions from '../../store/city/action';
 
 @connect(
-    ({getCity, operation}) => ({
-        operation,
-        citys: getCity
-    }),
+    ({getCity, operation}) => {
+        // console.log(getCity.toJS());
+        return  {
+            operation,
+            citys: getCity.toJS()
+        }
+    },
     dispatch => ({ 
         // @ts-ignore
         actions: bindActionCreators(actions, dispatch) 
@@ -37,13 +40,12 @@ class Home extends Component {
     }
     // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
-        // 用redux-thunk和redux-promise之后的nextProps是不一样的
-        console.log(nextProps);
+        // console.log(nextProps);
         const {citys , operation} = nextProps;
         switch (operation.type) {
             case 'CITY_SUCCESS':
                     this.setState({
-                        citys: citys.city.data
+                        citys: citys.city
                     });
                 break;
             default:
