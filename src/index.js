@@ -8,12 +8,15 @@ import {hashHistory} from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import rootReducer from './app/admin/store/reducer';
 import {logger, thunkMiddleware} from './app/admin/store/middleware/index';
+import applyWorker from './app/admin/store/middleware/redux-worker';
 import 'antd/dist/antd.css';
 import promiseMiddleware from './app/admin/store/middleware/redux-promise';
 import {operationMiddleware} from './app/admin/store/middleware/redux-operation'; 
 
+// 创建 web worker
+// const worker = new Worker('../scripts/build.js')
 // compose增强creatStore
-const configureStore = (initialState,history) =>{
+const configureStore = (initialState, history) =>{
     const middleware = [
         logger,
         thunkMiddleware,
