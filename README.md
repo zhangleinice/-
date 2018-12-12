@@ -6,10 +6,6 @@
   npm run dev
   ```
 
-## 技术栈 
-
-react + redux + webpack + react-router + ES6/7/8 
-
 ## Redux
 
 ![Image text](https://github.com/zhangleinice/-/blob/master/public/imgs/redux.jpg)
@@ -177,6 +173,58 @@ middleware：增强dispatch，简化actionCreator。
           return state;
   }
 ```
+
+## middleware
+1,applyMiddleware  
+```js
+    function applyMiddleware(...middlewares){
+        return function(createStore){
+            return function(reducer){
+                //引入store
+                let store = createStore(reducer);
+                let dispatch = store.dispatch;
+                let middlewareAPI = {
+                    getState:store.getState,
+                    // 对dispatch进行包装
+                    dispatch:action=>dispatch(action)
+                }
+                //每个中间件都是这种模型  ({ getState, dispatch }) => next => action
+                chain = middlewares.map(middleware => middleware(middleAPI));
+                dispatch = compose(...chain)(store.dispatch);
+                // dispatch被改装后，返回store
+                return{...store, dispatch};
+            }
+        }
+    }
+```
+2,每个中间件都是这种模型  ({ getState, dispatch }) => next => action,next相当于store.dispatch  
+```js
+    // 记录所有被发起的action和新的state
+    let next = store.dispatch;
+    store.dispatch = function(action){
+        console.log('老状态 ',store.getState());
+        next(action);
+        console.log('新状态 ',store.getState());
+    }
+
+    let logger = function({ getState, dispatch }){
+        // 这里的next可以理解为store.dispath,本质上就是调用 middleware 链中下一个 middleware 的 dispatch。
+        return function(next){
+            return function(action){
+                console.log('老状态1 ',getState());
+                next(action);//派发动作
+                console.log('新状态1 ',getState());
+            }
+        }
+    }
+    // 高逼格写法
+    let logger = ({ getState, dispatch }) => next => action => {
+        console.log('老状态1 ',getState());
+        next(action)
+        console.log('新状态1 ',getState());
+    }
+```
+
 
 
 

@@ -1,10 +1,9 @@
-import  * as api  from '../../../common/api/city'; 
+import  * as api  from '../../api/city'; 
 
 export const CITY = 'CITY';
 export const CITY_PENDING = 'CITY_PENDING';
 export const CITY_SUCCESS = 'CITY_SUCCESS';
 export const CITY_FAILURE = 'CITY_FAILURE';
-
 export const city = data => {
     // redux-promise-middleware 
     return {
@@ -23,5 +22,5 @@ export const num = data => {
             })
         })
     }
-}
+};
 

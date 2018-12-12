@@ -1,17 +1,17 @@
 // @ts-nocheck
 import React from 'react';
 import ReactDOM from 'react-dom';
-import router from './app/admin/router/index';
+import router from './router/index';
 import {Provider} from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import {hashHistory} from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import rootReducer from './app/admin/store/reducer';
-import {logger, thunkMiddleware} from './app/admin/store/middleware/index';
-import applyWorker from './app/admin/store/middleware/redux-worker';
+import rootReducer from './store/reducer';
+import {logger, thunkMiddleware} from './middleware/index';
+import applyWorker from './middleware/redux-worker';
 import 'antd/dist/antd.css';
-import promiseMiddleware from './app/admin/store/middleware/redux-promise';
-import {operationMiddleware} from './app/admin/store/middleware/redux-operation'; 
+import promiseMiddleware from './middleware/redux-promise';
+import {operationMiddleware} from './middleware/redux-operation'; 
 
 // 创建 web worker
 // const worker = new Worker('../scripts/build.js')

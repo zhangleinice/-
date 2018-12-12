@@ -1,12 +1,12 @@
 // middleware：增强dispatch，简化actionCreator。
-
 import { isFSA } from 'flux-standard-action';
+// next = store.dispatch
 
 // 打印日志
 export const logger = store => next => action => {
-    console.log('dispatching', action)
-    let result = next(action)
-    console.log('next state', store.getState())
+    console.log('dispatching', store.getState());
+    let result = next(action);
+    console.log('next state', store.getState());
     return result
 }
 
@@ -20,7 +20,7 @@ export const thunkMiddleware = ({dispatch, getState, extraArgument}) => {
     }
 }
 
-const isPromise = (val) => {
+const isPromise = val => {
     return val && typeof val.then === 'function';
 }
 

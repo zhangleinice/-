@@ -3,7 +3,7 @@
 import { CITY_SUCCESS,CITY_PENDING } from './action';
 import {fromJS} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
-import {getObjReducer, getArrayReducer} from '../../../common/util/reducer';
+import {getObjReducer, getArrayReducer} from '../../util/reducer';
 
 const initailState = fromJS({
     city: []

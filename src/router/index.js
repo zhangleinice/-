@@ -5,7 +5,7 @@ import Home from '../page/home/home';
 import List from '../page/list/list';
 import Detail from '../page/detail/detail';
 
-export default (history) => {
+export default history => {
     return (
         <Router history = {history}>
             <Route path='/' component={Home}>

@@ -1,7 +1,7 @@
 import { combineReducers }  from 'redux';
 import getCity from './city/reducer';
 import { routerReducer } from 'react-router-redux';
-import { operationReducer } from './middleware/redux-operation';
+import { operationReducer } from '../middleware/redux-operation';
 
 const rootReducer = combineReducers({
     // 将路由加入reducer
