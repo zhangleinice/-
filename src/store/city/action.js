@@ -1,11 +1,19 @@
 import  * as api  from '../../api/city'; 
 
+function isPromise(value) {
+    if (value !== null && typeof value === 'object') {
+        return value && typeof value.then === 'function';
+    }
+    return false;
+}
+
 export const CITY = 'CITY';
 export const CITY_PENDING = 'CITY_PENDING';
 export const CITY_SUCCESS = 'CITY_SUCCESS';
 export const CITY_FAILURE = 'CITY_FAILURE';
 export const city = data => {
-    // redux-promise-middleware 
+    // console.log(api.Cityinside());
+    // console.log(isPromise(api.Cityinside()));
     return {
         type: CITY,
         payload: api.Cityinside()

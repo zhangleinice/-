@@ -7,7 +7,7 @@ const rootReducer = combineReducers({
     // 将路由加入reducer
     routing: routerReducer,
     // 全局操作快照
-    operation: operationReducer,
+    // operation: operationReducer,
     getCity
 });
 

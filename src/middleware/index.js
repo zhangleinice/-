@@ -1,4 +1,7 @@
 // middleware：增强dispatch，简化actionCreator。
+
+// ### 基本的中间件
+
 import { isFSA } from 'flux-standard-action';
 // next = store.dispatch
 
@@ -43,3 +46,7 @@ export const promiseMiddleware = ({dispatch}) => {
            :next(action)
   }
 } 
+
+
+
+

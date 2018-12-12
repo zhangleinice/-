@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,14 +7,12 @@ import * as actions from '../../store/city/action';
 
 @connect(
     ({getCity, operation}) => {
-        // console.log(getCity.toJS());
         return  {
-            operation,
+            // operation,
             citys: getCity.toJS()
         }
     },
     dispatch => ({ 
-        // @ts-ignore
         actions: bindActionCreators(actions, dispatch) 
     })
 )
@@ -29,28 +26,24 @@ class Home extends Component {
         }
     }
     componentDidMount() {
-        // actions.city();
         this.props.actions.city();
-        // react-redux内封装好了subscript
-        // store.subscribe(() => {
-        //     this.setState({
-        //         citys: store.getState().getCity.city
-        //     });
-        // })
     }
     // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
         // console.log(nextProps);
         const {citys , operation} = nextProps;
-        switch (operation.type) {
-            case 'CITY_SUCCESS':
-                    this.setState({
-                        citys: citys.city
-                    });
-                break;
-            default:
-                break;
-        };
+        this.setState({
+            citys: citys.city
+        })
+        // switch (operation.type) {
+        //     case 'CITY_SUCCESS':
+        //             this.setState({
+        //                 citys: citys.city
+        //             });
+        //         break;
+        //     default:
+        //         break;
+        // };
     }
     // 路由跳转
     toList = () => {

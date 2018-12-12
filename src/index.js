@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import ReactDOM from 'react-dom';
 import router from './router/index';
@@ -8,7 +7,8 @@ import {hashHistory} from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import rootReducer from './store/reducer';
 import {logger, thunkMiddleware} from './middleware/index';
-import applyWorker from './middleware/redux-worker';
+import { promise } from './middleware/index';
+// import applyWorker from './middleware/redux-worker';
 import 'antd/dist/antd.css';
 import promiseMiddleware from './middleware/redux-promise';
 import {operationMiddleware} from './middleware/redux-operation'; 
@@ -18,10 +18,12 @@ import {operationMiddleware} from './middleware/redux-operation';
 // compose增强creatStore
 const configureStore = (initialState, history) =>{
     const middleware = [
-        logger,
-        thunkMiddleware,
-        promiseMiddleware({onFailure: 'hooks.onError'}),
-        operationMiddleware(),
+        // logger,
+        // thunkMiddleware,
+        // promise(),
+        // promiseMiddleware({onFailure: 'hooks.onError'}),
+        promiseMiddleware({}),
+        // operationMiddleware(),
         routerMiddleware(history)
     ];
     return compose(applyMiddleware(...middleware))(createStore)(rootReducer, initialState)

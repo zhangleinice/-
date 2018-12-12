@@ -198,6 +198,8 @@ middleware：增强dispatch，简化actionCreator。
     }
 ```
 2,每个中间件都是这种模型  ({ getState, dispatch }) => next => action,next相当于store.dispatch  
+
+3,redux-logger
 ```js
     // 记录所有被发起的action和新的state
     let next = store.dispatch;
@@ -224,6 +226,71 @@ middleware：增强dispatch，简化actionCreator。
         console.log('新状态1 ',getState());
     }
 ```
+4, redux-thunk允许return function
+```js
+    // redux-thunk
+    export const thunkMiddleware = ({dispatch, getState, extraArgument}) => {
+        return next => action => {
+            if(typeof action === 'function') {
+            return action(dispatch, getState, extraArgument);
+            }
+            return next(action);
+        }
+    }
+    //action
+    export function thunkActionCreator(payload){
+        return function(dispatch, getState,extraArgument){
+            setTimeout(function(){
+                dispatch({type:types.INCREMENT,payload:payload});
+            },1000);
+        }
+    },
+```
+5，redux-promise  
+```js
+    let promise = ({dispatch,getState}) => next => action => {
+        if(action.then && typeof action.then == 'function'){
+            action.then(dispatch);
+            // 这里的dispatch就是一个函数，dispatch(action){state:reducer(state,action)};
+        }else if(action.payload&& action.payload.then&& typeof action.payload.then == 'function'){
+            // 实际上dispatch了promise.then后面的
+            action.payload.then(
+             result => dispatch({...action,payload: result}),
+             error => {
+               dispatch({...action,payload: error,error: true})
+               return Promise.reject(error)
+             }
+           )
+        }else{
+            next(action);
+        }
+    }
+    //action1
+    function promiseIncrement(payload){
+    //  return {type:types.INCREMENT,payload:payload}  以前是这种写法
+        return new Promise(function(resolve,reject){
+        setTimeout(function(){
+            resolve({type:types.INCREMENT,payload:payload});
+        },1000);
+        });
+    }
+    //action2
+    function payloadIncrement(){
+        return {
+            type:types.INCREMENT,
+            payload: new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    if(Math.random()>.5){
+                        resolve(100);
+                    }else{
+                        reject(-100);
+                    }
+                },1000)
+            })
+        }
+    }
+```
+
 
 
 

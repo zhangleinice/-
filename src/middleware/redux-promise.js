@@ -26,6 +26,8 @@ export default ({promiseTypeSuffixes = defaultTypes, onPending, onSuccess, onFai
     return ({getState}) => next => action => {
       
         const {type, payload, meta = {}} = action;
+
+        // console.log(action);
       
         if (!payload || (!isPromise(payload) && !isPromise(payload.promise))) {
         // 将非promise的action指派给下一个中间件
@@ -76,7 +78,7 @@ export default ({promiseTypeSuffixes = defaultTypes, onPending, onSuccess, onFai
         // Success的处理
         const handleSuccess = (value = null) => {
             const successAction = getAction(`${type}_${SUCCESS}`, value, false);
-        
+            
             next(successAction);
         
             if (!meta.silent && typeof onSuccess == 'function') {
