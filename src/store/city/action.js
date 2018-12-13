@@ -22,13 +22,17 @@ export const city = data => {
 
 export const NUM = 'NUM';
 export const num = data => {
-    return (dispatch) => {
-        api.Cityinside().then(res =>{
-            dispatch ({
-                type: CITY,
-                payload: res.data
-            })
-        })
+    // return (dispatch) => {
+    //     api.Cityinside().then(res =>{
+    //         dispatch ({
+    //             type: CITY,
+    //             payload: res.data
+    //         })
+    //     })
+    // }
+    return {
+        type: NUM,
+        payload: api.Cityinside()
     }
 };
 

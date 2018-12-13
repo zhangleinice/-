@@ -34,7 +34,8 @@ export default ({promiseTypeSuffixes = defaultTypes, onPending, onSuccess, onFai
             return next(action);
         }
       
-        const [PENDING, SUCCESS, FAILURE] = (meta || {}).promiseTypeSuffixes || promiseTypeSuffixes;
+        const [PENDING, SUCCESS, FAILURE] =  promiseTypeSuffixes;
+        // const [PENDING, SUCCESS, FAILURE] = (meta || {}).promiseTypeSuffixes || promiseTypeSuffixes;
       
         let promise;
         let data;
@@ -43,6 +44,7 @@ export default ({promiseTypeSuffixes = defaultTypes, onPending, onSuccess, onFai
         };
       
         // 转换参数
+        // debugger
         if (!isPromise(payload) && typeof payload === 'object') {
         // payload={promise|data|callback}
             promise = payload.promise;
