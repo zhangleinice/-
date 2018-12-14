@@ -8,8 +8,8 @@ import * as actions from '../../store/city/action';
 @connect(
     ({getCity, operation}) => {
         return  {
-            // operation,
-            citys: getCity.toJS()
+            operation,
+            citys: getCity
         }
     },
     dispatch => ({ 
@@ -30,20 +30,26 @@ class Home extends Component {
     }
     // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
-        // console.log(nextProps);
+        console.log(nextProps);
         const {citys , operation} = nextProps;
-        this.setState({
-            citys: citys.city
-        })
-        // switch (operation.type) {
-        //     case 'CITY_SUCCESS':
-        //             this.setState({
-        //                 citys: citys.city
-        //             });
-        //         break;
-        //     default:
-        //         break;
-        // };
+        // this.setState({
+        //     citys: citys.city.data
+        // })
+        //添加了opeation reducer后
+        switch (operation.type) {
+            case 'CITY_SUCCESS':
+                    this.setState({
+                        citys: citys.city.data
+                    }, () => {
+                        this.props.actions.num();
+                    });
+                break;
+            case 'NUM_SUCCESS':
+                    console.log(citys);
+                break;
+            default:
+                break;
+        };
     }
     // 路由跳转
     toList = () => {

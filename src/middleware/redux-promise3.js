@@ -1,8 +1,7 @@
 /*
  * @Author: rocky 
  * @since: 2018-12-13 17:10:59 
- */// 操作快照
-// const operation = 'OPERATION';
+ */
 const defaultTypes = [
     'PENDING',
     'SUCCESS',
@@ -29,22 +28,6 @@ export default () => {
         const [PENDING, SUCCESS, FAILURE] =  defaultTypes;
       
         let data = null;
-      
-        // 转换参数
-        // if (!isPromise(payload) && typeof payload === 'object') {
-        // // payload={promise|data|callback}
-        //     // console.log(1);
-        //     // promise = payload.promise;
-        //     // data = payload.data;
-        //     // if (typeof payload.callback == 'function') {
-        //     //     callback = payload.callback;
-        //     // }
-        // } else {
-        //     // console.log(2);
-        // // payload = promise;
-        //     promise = payload;
-        //     data = null;
-        // }
       
         // 根据参数获取新派生的Action
         const getAction = (type, newPayload, isRejected) => ({

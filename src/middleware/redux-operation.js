@@ -24,7 +24,7 @@ const defaultState = { type: '', status: '', result: null, loading: {} };
 
 // 操作快照Reducer
 export function operationReducer(state = defaultState, { type, payload, meta }) {
-
+    // debugger
     // 不需要进入操作快照的记录
     if (type.indexOf('@@') == 0 || (meta && meta.operation === false)) {
         return state;
