@@ -1,7 +1,4 @@
-/*
- * @Author: rocky 
- * @since: 2018-12-13 17:10:59 
- */
+// 改造actionCreat，只写一个action，自动发success，pendding，failure请求
 const defaultTypes = [
     'PENDING',
     'SUCCESS',
@@ -17,7 +14,7 @@ function isPromise(value) {
 export default () => {
     
     return ({getState}) => next => action => {
-      
+        // debugger
         const {type, payload} = action;
 
         if (!payload || (!isPromise(payload))) {

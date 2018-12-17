@@ -30,7 +30,7 @@ class Home extends Component {
     }
     // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+        // console.log(nextProps);
         const {citys , operation} = nextProps;
         // this.setState({
         //     citys: citys.city.data
@@ -45,7 +45,7 @@ class Home extends Component {
                     });
                 break;
             case 'NUM_SUCCESS':
-                    console.log(citys);
+                    // console.log(citys);
                 break;
             default:
                 break;

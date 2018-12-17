@@ -115,6 +115,8 @@ store的三大功能：dispatch，subscribe，getState都不需要手动来写�
 
 ### 中间件和异步操作
 
+***中间件实际上就是对store.dispatch()进行改造***  
+
 ![Image text](https://github.com/zhangleinice/-/blob/master/public/imgs/middleware.jpg)
 
 用户发出 Action，Reducer 函数算出新的 State，View 重新渲染。<br/>但是，一个关键问题没有解决：异步操作怎么办？Action 发出以后，Reducer 立即算出 State，这叫做同步；Action 发出以后，过一段时间再执行 Reducer，这就是异步。
