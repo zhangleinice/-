@@ -17,12 +17,11 @@ import {getObjReducer, getArrayReducer} from '../../util/reducer';
 const initailState = {
     city: []
 }
-debugger
 const getCity = (state = initailState, action) => {
     switch(action.type) {
         // redux-promise
         case CITY_SUCCESS:
-            console.log(action.payload);
+            // console.log(action.payload);
             return {
                     ...state,
                     city: action.payload

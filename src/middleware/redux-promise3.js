@@ -45,7 +45,9 @@ export default () => {
             const successAction = getAction(`${type}_${SUCCESS}`, value, false);
             
             next(successAction);
-        
+
+            // test
+            return 1;
         };
       
         // Failure的处理
@@ -56,7 +58,7 @@ export default () => {
         
         };
       
-        return payload.then(handleSuccess, handleFailure)
+        return payload.then(handleSuccess, handleFailure).then(v => console.log(v))
     };
 };
   
