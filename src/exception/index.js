@@ -2,11 +2,15 @@ import { message } from 'antd';
 
 export default action => {
 
-    const { msg = '网络错误', code } = action.payload;
+    const { msg = '网络错误', status } = action.payload;
 
-    if(code === 401) {
-        console.log(401);
+    if(status === 200){
+        message.success('nice')
     }
 
-    message.error(msg);
+    if(status === 401) {
+        message.error(msg);
+    }
+
+    // message.error(msg);
 }

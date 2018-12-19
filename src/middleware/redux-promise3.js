@@ -1,4 +1,7 @@
 // 改造actionCreat，只写一个action，自动发success，pendding，failure请求
+
+import onError from '../exception/index';
+
 const defaultTypes = [
     'PENDING',
     'SUCCESS',
@@ -45,6 +48,11 @@ export default () => {
             const successAction = getAction(`${type}_${SUCCESS}`, value, false);
             
             next(successAction);
+
+            //test
+            // onError(successAction)
+
+            // console.log(value);
         
         };
       
@@ -53,9 +61,13 @@ export default () => {
             const failureAction = getAction(`${type}_${FAILURE}`, value, true);
         
             next(failureAction);
+
+            onError(failureAction)
         
         };
-      
+
+        // payload.then(handleSuccess, handleFailure)
+
         return payload.then(handleSuccess, handleFailure)
     };
 };
