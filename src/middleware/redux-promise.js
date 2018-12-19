@@ -39,8 +39,8 @@ export default ({promiseTypeSuffixes = defaultTypes, onPending, onSuccess, onFai
       
         let promise;
         let data;
-        let callback = function () {
-      
+        let callback = function (v) {
+            console.log(v);
         };
       
         // 转换参数
@@ -108,7 +108,9 @@ export default ({promiseTypeSuffixes = defaultTypes, onPending, onSuccess, onFai
         };
       
         handlePending();
-      
+        
+        // callback()
+
         return promise.then(handleSuccess, handleFailure).then(callback);
     };
 };

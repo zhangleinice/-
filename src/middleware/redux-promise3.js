@@ -54,6 +54,8 @@ export default () => {
 
             // console.log(value);
         
+            // test
+            return 1;
         };
       
         // Failure的处理
@@ -68,7 +70,9 @@ export default () => {
 
         // payload.then(handleSuccess, handleFailure)
 
-        return payload.then(handleSuccess, handleFailure)
+        // return payload.then(handleSuccess, handleFailure)
+      
+        return payload.then(handleSuccess, handleFailure).then(v => console.log(v))
     };
 };
   
