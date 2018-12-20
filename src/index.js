@@ -16,13 +16,13 @@ import {operationMiddleware} from './middleware/redux-operation';
 // const worker = new Worker('../scripts/build.js')
 // compose增强creatStore
 const configureStore = (initialState, history) =>{
-    const middleware = [
+    const middlewares = [
         // promiseMiddleware({onFailure: 'hooks.onError'}),
         promiseMiddleware({}),
         // operationMiddleware(),
         routerMiddleware(history)
     ];
-    return compose(applyMiddleware(...middleware))(createStore)(rootReducer, initialState)
+    return applyMiddleware(...middlewares)(createStore)(rootReducer, initialState)
 }
 
 const store = configureStore({}, hashHistory);
