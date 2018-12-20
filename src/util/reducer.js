@@ -1,9 +1,3 @@
-/*
- * reducer工具方法
- * @Author: ray.pan 
- * @since: 2017-11-02 15:08:10 
- */
-
 import {fromJS} from 'immutable';
 import _ from 'lodash';
 

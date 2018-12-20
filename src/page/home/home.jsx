@@ -30,14 +30,15 @@ class Home extends Component {
         this.props.actions.getTopics();
     }
     componentWillReceiveProps(nextProps) {
-        const {topics , operation} = nextProps;
+        const {topics ,  operation} = nextProps;
         switch (operation.type) {
             case 'GET_TOPICS_SUCCESS':
-                    this.setState({
-                        topics: topics.topics.data
-                    }, () => {
-                        // this.props.actions.getTopics();
-                    });
+                this.setState({
+                    topics: topics.topics.data
+                }, () => {
+                    // 调同一个请求会造成死循环
+                    // this.props.actions.getTopics();
+                });
                 break;
             default:
                 break;
