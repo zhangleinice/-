@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { Button } from 'antd';
-import * as actions from '../../store/city/action';
+import * as actions from '../../store/cnode/action';
+import { List } from 'antd';
 
 @connect(
-    ({getCity, operation}) => {
+    ({operation, getTopics}) => {
         return  {
             operation,
-            citys: getCity
+            topics: getTopics
         }
     },
     dispatch => ({ 
@@ -22,30 +23,21 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            citys: []
+            topics: []
         }
     }
     componentDidMount() {
-        this.props.actions.city();
+        this.props.actions.getTopics();
     }
-    // 配合react-redux拿到更新后的state
     componentWillReceiveProps(nextProps) {
-        // console.log(nextProps);
-        const {citys , operation} = nextProps;
-        // this.setState({
-        //     citys: citys.city.data
-        // })
-        //添加了opeation reducer后
+        const {topics , operation} = nextProps;
         switch (operation.type) {
-            case 'CITY_SUCCESS':
+            case 'GET_TOPICS_SUCCESS':
                     this.setState({
-                        citys: citys.city.data
+                        topics: topics.topics.data
                     }, () => {
-                        this.props.actions.num();
+                        // this.props.actions.getTopics();
                     });
-                break;
-            case 'NUM_SUCCESS':
-                    // console.log(citys);
                 break;
             default:
                 break;
@@ -61,19 +53,15 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <div>首页</div>
+                <h2>cnode</h2>
                 {this.props.children}
                 <Button type='primary' onClick={this.toList}>to list</Button>
                 <Button type="primary" onClick={this.toDetail}>to detail</Button>
-                <div>
-                    {
-                        this.state.citys.map(item => {
-                            return (
-                                <div key={item.value}>{item.label}</div>
-                            )
-                        })
-                    }
-                </div>
+                <List
+                    bordered
+                    dataSource={this.state.topics}
+                    renderItem={item => (<List.Item>{item.title}</List.Item>)}
+                />
             </div>
         );
     }

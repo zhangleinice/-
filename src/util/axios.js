@@ -13,9 +13,9 @@ const instance = axios.create({
 //  Add a request interceptor
 instance.interceptors.request.use(config => {
     // console.log('Add a request interceptor');
+    console.log(config);
     return config
 }, err => {
-    console.log(err);
     return Promise.reject(err)
 })
 
