@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 
-class Detail extends Component {
+class App extends Component {
     constructor(props) {
         super(props);
         this.state = {  };
     }
     render() {
         return (
-          <div>详情页</div>  
+            <div className="app">
+                {this.props.children}
+            </div>
         );
     }
 }
 
-export default Detail;
+export default App;

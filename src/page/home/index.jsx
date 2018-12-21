@@ -44,24 +44,18 @@ class Home extends Component {
                 break;
         };
     }
-    // 路由跳转
-    toList = () => {
-        this.props.router.push('/list')
-    }
-    toDetail = () => {
-        this.props.router.push('/detail')
+    toDetail = id => {
+        this.props.router.push(`/detail/${id}`)
     }
     render() {
         return (
             <div>
                 <h2>cnode</h2>
                 {this.props.children}
-                <Button type='primary' onClick={this.toList}>to list</Button>
-                <Button type="primary" onClick={this.toDetail}>to detail</Button>
                 <List
                     bordered
                     dataSource={this.state.topics}
-                    renderItem={item => (<List.Item>{item.title}</List.Item>)}
+                    renderItem={item => (<List.Item onClick={() => this.toDetail(item.id)}>{item.title}</List.Item>)}
                 />
             </div>
         );

@@ -59,6 +59,7 @@
     "flux-standard-action": "^2.0.3",
     "immutable": "^3.8.2",
     "lodash": "^4.17.10",
+    "react-markdown": "^4.0.4",
     "react-redux": "^5.0.7",
     "react-router": "^3.2.1",
     "react-router-dom": "^4.3.1",

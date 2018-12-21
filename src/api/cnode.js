@@ -11,3 +11,7 @@ const baseUrl = 'https://cnodejs.org/api/v1';
 export const getTopics = data => {
     return axios.get(`${baseUrl}/topics`)
 }
+
+export const getDetail = data => {
+    return axios.get(`${baseUrl}/topic/${data}`)
+}

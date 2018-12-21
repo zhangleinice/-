@@ -10,3 +10,14 @@ export const getTopics = () => {
         payload: api.getTopics()
     }
 }
+
+export const GET_DETAIL = 'GET_DETAIL';
+export const GET_DETAIL_PENDING = 'GET_DETAIL_PENDING';
+export const GET_DETAIL_SUCCESS = 'GET_DETAIL_SUCCESS';
+export const GET_DETAIL_FAILURE = 'GET_DETAIL_FAILURE';
+export const getDetail = id => {
+    return {
+        type: GET_DETAIL,
+        payload: api.getDetail(id)
+    }
+}
