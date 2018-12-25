@@ -67,7 +67,9 @@ export default () => {
             onError(failureAction)
         
         };
-
+        
+        // handlePending();
+        
         // payload.then(handleSuccess, handleFailure)
 
         // return payload.then(handleSuccess, handleFailure)

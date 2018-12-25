@@ -23,7 +23,8 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            topics: []
+            topics: [],
+            isTableLoading: true
         }
     }
     componentDidMount() {
@@ -34,7 +35,8 @@ class Home extends Component {
         switch (operation.type) {
             case 'GET_TOPICS_SUCCESS':
                 this.setState({
-                    topics: topics.topics.data
+                    topics: topics.topics.data,
+                    isTableLoading: false
                 }, () => {
                     // 调同一个请求会造成死循环
                     // this.props.actions.getTopics();
@@ -48,6 +50,7 @@ class Home extends Component {
         this.props.router.push(`/detail/${id}`)
     }
     render() {
+        console.log(this.props);
         return (
             <div>
                 <h2>cnode</h2>

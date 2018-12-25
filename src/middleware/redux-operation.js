@@ -29,9 +29,9 @@ export function operationReducer(state = defaultState, { type, payload, meta }) 
     if (type.indexOf('@@') == 0 || (meta && meta.operation === false)) {
         return state;
     }
-
+    debugger
     const origin = type.match(PROMISE_TYPE_STATUS_EXP);
-
+    
     const newState = {
         ...state,
         type: type,
@@ -44,6 +44,8 @@ export function operationReducer(state = defaultState, { type, payload, meta }) 
     if (origin) {
         newState.loading[newState.origin] = newState.status === 'PENDING';
     }
+
+    console.log(newState);
 
     return newState;
 }
