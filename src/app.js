@@ -11,7 +11,7 @@ class App extends Component {
         this.state = {  };
     }
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         
         // if(this.props.operation.status === 'PENDING'){
         //     return <AppLoading/>

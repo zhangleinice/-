@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
-import { Button } from 'antd';
 import * as actions from '../../store/cnode/action';
 import { List } from 'antd';
 
@@ -24,7 +23,7 @@ class Home extends Component {
         super(props);
         this.state = {
             topics: [],
-            isTableLoading: true
+            loading: true
         }
     }
     componentDidMount() {
@@ -36,7 +35,8 @@ class Home extends Component {
             case 'GET_TOPICS_SUCCESS':
                 this.setState({
                     topics: topics.topics.data,
-                    isTableLoading: false
+                    //list数据获取成功后，取消loading
+                    loading: false
                 }, () => {
                     // 调同一个请求会造成死循环
                     // this.props.actions.getTopics();
@@ -50,7 +50,6 @@ class Home extends Component {
         this.props.router.push(`/detail/${id}`)
     }
     render() {
-        console.log(this.props);
         return (
             <div>
                 <h2>cnode</h2>
@@ -59,6 +58,7 @@ class Home extends Component {
                     bordered
                     dataSource={this.state.topics}
                     renderItem={item => (<List.Item onClick={() => this.toDetail(item.id)}>{item.title}</List.Item>)}
+                    loading={this.state.loading}
                 />
             </div>
         );
