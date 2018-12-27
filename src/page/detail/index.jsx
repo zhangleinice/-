@@ -8,7 +8,7 @@ import MarkDown from 'react-markdown';
 @connect(
     ({operation, getTopics}) => ({
         operation, 
-        topics: getTopics
+        topics: getTopics.toJS()
     }),
     dispatch => ({ 
         actions: bindActionCreators(actions, dispatch) 

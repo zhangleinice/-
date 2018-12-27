@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
-import { Button } from 'antd';
 import * as actions from '../../store/cnode/action';
 import { List } from 'antd';
 
@@ -10,7 +9,7 @@ import { List } from 'antd';
     ({operation, getTopics}) => {
         return  {
             operation,
-            topics: getTopics
+            topics: getTopics.toJS()
         }
     },
     dispatch => ({ 

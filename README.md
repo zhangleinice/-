@@ -293,6 +293,32 @@ middleware：增强dispatch，简化actionCreator。
     }
 ```
 
+### 结合immutable.js使用redux
+
+```js
+    let a = { name: 'FE' }
+    let b = a
+    b.name = 'EF'
+    console.log(a.name) // EF
+```
+这种共享数据，好处是节省内存。 a,b指向同一个 { name: 'FE' }，但是，在复杂的开发中它的副作用远比好处大的多  
+
+...和Object.assign都只是进行浅拷贝。  
+
+Immutable.JS 旨在以一种高性能的方式提供不可变，以克服 JavaScript 不可变的局限性  
+
+由于是不可变的，可以放心的对对象进行任意操作。在React开发中，频繁操作state对象或是store，配合immutableJS快、安全、方便  
+
+*节省内存*,为了避免 deepCopy 把所有节点都复制一遍带来的性能损耗，Immutable 使用了 Structural Sharing（结构共享），即如果对象树中一个节点发生变化，只修改这个节点和受它影响的父节点，其它节点则进行共享,甚至以前使用的对象也可以再次被复用。没有被引用的对象会被垃圾回收。  
+
+![Image text](https://github.com/zhangleinice/-/blob/master/public/imgs/immutable.gif)
+
+
+
+
+
+
+
 
 
 
